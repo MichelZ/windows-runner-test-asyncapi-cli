@@ -24,23 +24,23 @@ jobs:
         name: Check A/V Status
         shell: pwsh
         run: Get-MpComputerStatus
-      - if: matrix.os == 'windows-latest'
+      - if: matrix.os == 'windows-latest' && false
         name: Disable A/V
         shell: pwsh
         run: New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Force
-      - if: matrix.os == 'windows-latest' 
+      - if: matrix.os == 'windows-latest' && false
         #linting should run just one and not on all possible operating systems
         name: Disable A/V
         shell: pwsh
         run: New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name DisableAntiSpyware -Value 1 -PropertyType DWORD -Force
-      - if: matrix.os == 'windows-latest'
+      - if: matrix.os == 'windows-latest' && false
         name: Get Services
         run: sc query
-      - if: matrix.os == 'windows-latest'
+      - if: matrix.os == 'windows-latest' && false
         name: Remove A/V
         shell: pwsh
         run: uninstall-windowsfeature -name Windows-Defender -Confirm:$false
-      - if: matrix.os == 'windows-latest'
+      - if: matrix.os == 'windows-latest' && false
         #linting should run just one and not on all possible operating systems
         name: Check A/V Status
         shell: pwsh
