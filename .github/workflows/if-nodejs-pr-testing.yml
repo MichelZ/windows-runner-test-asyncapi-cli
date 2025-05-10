@@ -99,9 +99,12 @@ jobs:
       - if: matrix.os == 'windows-latest'
         name: Get TCP Settings
         run: netsh interface tcp show global 
-      - if: matrix.os == 'windows-latest'
+      - if: matrix.os == 'windows-latest' && false
         name: Disable TCP autotuning
         run: netsh int tcp set global autotuninglevel=disabled
+      - if: matrix.os == 'windows-latest'
+        name: Enable TCP fastopen
+        run: netsh int tcp set global fastopen=enabled
       - if: matrix.os == 'windows-latest'
         name: Disable firewall
         run: netsh advfirewall set allprofiles state off
