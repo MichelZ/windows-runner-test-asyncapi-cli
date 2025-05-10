@@ -20,7 +20,17 @@ jobs:
     steps:
       - if: matrix.os == 'windows-latest'
         #linting should run just one and not on all possible operating systems
-        name: Run linter
+        name: Check A/V Status
+        shell: pwsh
+        run: Get-MpComputerStatus
+      - if: matrix.os == 'windows-latest'
+        #linting should run just one and not on all possible operating systems
+        name: Disable A/V
+        shell: pwsh
+        run: New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name DisableAntiSpyware -Value 1 -PropertyType DWORD -Force
+      - if: matrix.os == 'windows-latest'
+        #linting should run just one and not on all possible operating systems
+        name: Check A/V Status
         shell: pwsh
         run: Get-MpComputerStatus
       - if: >
