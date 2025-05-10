@@ -102,9 +102,15 @@ jobs:
       - if: matrix.os == 'windows-latest' && false
         name: Disable TCP autotuning
         run: netsh int tcp set global autotuninglevel=disabled
-      - if: matrix.os == 'windows-latest'
+      - if: matrix.os == 'windows-latest' && false
         name: Enable TCP fastopen
         run: netsh int tcp set global fastopen=enabled
+      - if: matrix.os == 'windows-latest'
+        name: Disable variables
+        run: set
+      - if: matrix.os == 'windows-latest'
+        name: current directory
+        run: pwd  
       - if: matrix.os == 'windows-latest'
         name: Disable firewall
         run: netsh advfirewall set allprofiles state off
@@ -114,7 +120,7 @@ jobs:
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
         shell: bash
-        run: npm ci --verbose --maxsockets=100
+        run: npm ci --verbose --maxsockets=10
       - if: steps.packagejson.outputs.exists == 'true'
         name: Test
         run: npm test --if-present
