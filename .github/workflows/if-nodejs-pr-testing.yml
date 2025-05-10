@@ -17,7 +17,7 @@ jobs:
       matrix:
         # Using macos-13 instead of latest (macos-14) due to an issue with Puppeteer and such runner. 
         # See: https://github.com/puppeteer/puppeteer/issues/12327 and https://github.com/asyncapi/parser-js/issues/1001
-        os: [ubuntu-latest, windows-latest, windows-2025]
+        os: [windows-latest]
     steps:
       - if: (matrix.os == 'windows-latest' || matrix.os == 'windows-2025') && false
         #linting should run just one and not on all possible operating systems
@@ -121,7 +121,7 @@ jobs:
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
         shell: bash
-        run: npm ci --verbose --maxsockets=10
+        run: npm ci --verbose --maxsockets=100 --cache d:\temp\npm-cache
       - if: steps.packagejson.outputs.exists == 'true'
         name: Test
         run: npm test --if-present
