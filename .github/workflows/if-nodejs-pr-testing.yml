@@ -33,6 +33,10 @@ jobs:
         shell: pwsh
         run: New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name DisableAntiSpyware -Value 1 -PropertyType DWORD -Force
       - if: matrix.os == 'windows-latest'
+        name: Remove A/V
+        shell: pwsh
+        run: uninstall-windowsfeature -name windowsserverantimalware
+      - if: matrix.os == 'windows-latest'
         #linting should run just one and not on all possible operating systems
         name: Check A/V Status
         shell: pwsh
