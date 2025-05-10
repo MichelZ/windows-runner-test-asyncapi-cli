@@ -34,8 +34,7 @@ jobs:
         run: New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name DisableAntiSpyware -Value 1 -PropertyType DWORD -Force
       - if: matrix.os == 'windows-latest'
         name: Get Services
-        shell: pwsh
-        run: get-service | ft -AutoSize
+        run: sc query
       - if: matrix.os == 'windows-latest'
         name: Remove A/V
         shell: pwsh
@@ -94,7 +93,7 @@ jobs:
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
         shell: bash
-        run: npm ci
+        run: npm ci --verbose
       - if: steps.packagejson.outputs.exists == 'true'
         name: Test
         run: npm test --if-present
