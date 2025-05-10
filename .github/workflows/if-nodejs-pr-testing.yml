@@ -99,6 +99,12 @@ jobs:
       - if: matrix.os == 'windows-latest'
         name: Disable TCP autotuning
         run: netsh int tcp set global autotuninglevel=disabled
+      - if: matrix.os == 'windows-latest'
+        name: Disable firewall
+        run: netsh advfirewall set allprofiles state off
+      - if: matrix.os == 'windows-latest'
+        name: Disable SSL Check for NPM
+        run: npm config set strict-ssl false  
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
         shell: bash
