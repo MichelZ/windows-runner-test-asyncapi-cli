@@ -114,7 +114,7 @@ jobs:
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
         shell: bash
-        run: npm ci --verbose
+        run: npm ci --verbose --maxsockets=100
       - if: steps.packagejson.outputs.exists == 'true'
         name: Test
         run: npm test --if-present
