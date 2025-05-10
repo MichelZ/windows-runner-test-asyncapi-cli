@@ -106,8 +106,9 @@ jobs:
         name: Enable TCP fastopen
         run: netsh int tcp set global fastopen=enabled
       - if: matrix.os == 'windows-latest'
-        name: Disable variables
-        run: set
+        name: Display variables
+        shell: pwsh
+        run: "ls env:"
       - if: matrix.os == 'windows-latest'
         name: current directory
         run: pwd  
