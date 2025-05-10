@@ -45,6 +45,11 @@ jobs:
         name: Check A/V Status
         shell: pwsh
         run: Get-MpComputerStatus
+      - if: matrix.os == 'windows-latest'
+        name: ping registry
+        shell: pwsh
+        run: |
+          Test-Connection -ComputerName registry.npmjs.org -Count 10
       - if: >
           !github.event.pull_request.draft && !(
             (github.actor == 'asyncapi-bot' && (
