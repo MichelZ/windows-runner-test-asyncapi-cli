@@ -19,7 +19,7 @@ jobs:
         # See: https://github.com/puppeteer/puppeteer/issues/12327 and https://github.com/asyncapi/parser-js/issues/1001
         os: [ubuntu-latest, windows-latest, windows-2025]
     steps:
-      - if: matrix.os == 'windows-latest' || matrix.os == 'windows-2025'
+      - if: (matrix.os == 'windows-latest' || matrix.os == 'windows-2025') && false
         #linting should run just one and not on all possible operating systems
         name: Check A/V Status
         shell: pwsh
@@ -45,7 +45,7 @@ jobs:
         name: Check A/V Status
         shell: pwsh
         run: Get-MpComputerStatus
-      - if: matrix.os == 'windows-latest'
+      - if: matrix.os == 'windows-latest' && false
         name: ping registry
         shell: pwsh
         run: |
@@ -96,6 +96,9 @@ jobs:
        # name: Install npm cli 8
        # shell: bash
        # run: npm install -g npm@8.19.4
+      - if: matrix.os == 'windows-latest'
+        name: Get TCP Settings
+        run: netsh interface tcp show global 
       - if: matrix.os == 'windows-latest'
         name: Disable TCP autotuning
         run: netsh int tcp set global autotuninglevel=disabled
