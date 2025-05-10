@@ -91,13 +91,14 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "${{ steps.lockversion.outputs.version }}"
-      - name: set npm registry
-        run: npm config set registry http://registry.npmjs.org/ --global
       #- if: steps.lockversion.outputs.version == '18' && matrix.os == 'windows-latest'
         #npm cli 10 is buggy because of some cache issue
        # name: Install npm cli 8
        # shell: bash
        # run: npm install -g npm@8.19.4
+      - if: matrix.os == 'windows-latest'
+        name: Disable TCP autotuning
+        run: netsh int tcp set global autotuninglevel=disabled
       - if: steps.packagejson.outputs.exists == 'true'
         name: Install dependencies
         shell: bash
